@@ -6,12 +6,20 @@ conn = sqlite3.connect('database.db')
 cursor = conn.cursor()
 
 # Create incidents table
+
 cursor.execute('''
 CREATE TABLE IF NOT EXISTS incidents (
+
     id INTEGER PRIMARY KEY AUTOINCREMENT,
+
     incident_name TEXT NOT NULL,
+
     severity TEXT NOT NULL,
-    status TEXT NOT NULL
+
+    status TEXT NOT NULL,
+
+    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
+
 )
 ''')
 

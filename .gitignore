@@ -3,3 +3,9 @@ __pycache__/
 *.pyc
 database.db
 incident_report.csv
+venv/
+__pycache__/
+*.pyc
+database.db
+incident_report.pdf
+incident_report.csv

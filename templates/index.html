@@ -2,18 +2,25 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
     <title>Cybersecurity Incident Response Tool</title>
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 </head>
 
 <body>
 
     <!-- Sidebar -->
+
     <div class="sidebar">
 
         <h2>CyberSec Tool</h2>
@@ -29,32 +36,65 @@
     </div>
 
     <!-- Main Content -->
-    <div class="navbar">
 
-    <h1>Cybersecurity Incident Response Dashboard</h1>
+    <div class="main-content">
 
-    <div>
+        <!-- Navbar -->
 
-        <a href="/simulate_attack"
-           class="simulate-btn">
-           Simulate Attack
-        </a>
+        <div class="navbar">
 
-        <a href="/export_csv"
-           class="export-btn">
-           Export CSV
-        </a>
+            <h1>Cybersecurity Incident Response Dashboard</h1>
+            <div class="system-status">
 
-        <a href="/logout"
-           class="logout-btn">
-           Logout
-        </a>
+                🟢 System Active |
+                <span id="liveClock"></span>
 
-    </div>
+            </div>
+            <div>
 
-</div>
+                <a href="/simulate_attack"
+                   class="simulate-btn">
+                   Simulate Attack
+                </a>
 
-        <!-- Cards -->
+                <a href="/export_csv"
+                   class="export-btn">
+                   Export CSV
+                </a>
+                <a href="/export_pdf"
+                    class="export-btn">
+                    Export PDF
+                </a>
+
+                <a href="/logout"
+                   class="logout-btn">
+                   Logout
+                </a>
+
+            </div>
+
+        </div>
+
+        <!-- Alert Messages -->
+
+        {% with messages = get_flashed_messages() %}
+
+            {% if messages %}
+
+                {% for message in messages %}
+
+                    <div class="alert-box">
+                        {{ message }}
+                    </div>
+
+                {% endfor %}
+
+            {% endif %}
+
+        {% endwith %}
+
+        <!-- Dashboard Cards -->
+
         <div class="card-container">
 
             <div class="card">
@@ -78,162 +118,219 @@
             </div>
 
         </div>
-<!-- Add Incident Form -->
 
-<div class="form-section">
+        <!-- Add Incident Form -->
 
-    <h2>Add New Incident</h2>
+        <div class="form-section">
 
-    <form action="/add_incident" method="POST">
+            <h2>Add New Incident</h2>
 
-        <input type="text"
-               name="incident_name"
-               placeholder="Incident Name"
-               required>
+            <form action="/add_incident"
+                  method="POST">
 
-        <select name="severity">
+                <input type="text"
+                       name="incident_name"
+                       placeholder="Incident Name"
+                       required>
 
-            <option value="Low">Low</option>
-            <option value="Medium">Medium</option>
-            <option value="High">High</option>
-            <option value="Critical">Critical</option>
+                <select name="severity">
 
-        </select>
+                    <option value="Low">Low</option>
+                    <option value="Medium">Medium</option>
+                    <option value="High">High</option>
+                    <option value="Critical">Critical</option>
 
-        <select name="status">
+                </select>
 
-            <option value="Active">Active</option>
-            <option value="Resolved">Resolved</option>
+                <select name="status">
 
-        </select>
+                    <option value="Active">Active</option>
+                    <option value="Resolved">Resolved</option>
 
-        <button type="submit">Add Incident</button>
+                </select>
 
-    </form>
+                <button type="submit">
+                    Add Incident
+                </button>
 
-</div>
+            </form>
 
-<!-- Search and Filter -->
+        </div>
 
-<div class="filter-section">
+        <!-- Search and Filter -->
 
-    <form method="GET" action="/">
+        <div class="filter-section">
 
-        <input type="text"
-               name="search"
-               placeholder="Search incidents...">
+            <form method="GET"
+                  action="/">
 
-        <select name="severity">
+                <input type="text"
+                       name="search"
+                       placeholder="Search incidents...">
 
-            <option value="">All Severities</option>
-            <option value="Critical">Critical</option>
-            <option value="High">High</option>
-            <option value="Medium">Medium</option>
-            <option value="Low">Low</option>
+                <select name="severity">
 
-        </select>
+                    <option value="">All Severities</option>
+                    <option value="Critical">Critical</option>
+                    <option value="High">High</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Low">Low</option>
 
-        <button type="submit">Filter</button>
+                </select>
 
-    </form>
+                <button type="submit">
+                    Filter
+                </button>
 
-</div>
+            </form>
 
-<!-- Analytics Chart -->
+        </div>
 
-<div class="chart-section">
+        <!-- Analytics Chart -->
 
-    <h2>Incident Severity Analytics</h2>
+        <div class="chart-section">
 
-    <canvas id="severityChart"></canvas>
+            <h2>Incident Severity Analytics</h2>
 
-</div>
+            <canvas id="severityChart"></canvas>
 
-<!-- Incident Table -->
+        </div>
 
-<div class="table-section">
+        <!-- Incident Table -->
 
-    <h2>Incident Logs</h2>
+        <div class="table-section">
 
-    <table>
+            <h2>Incident Logs</h2>
 
-        <tr>
-            <th>ID</th>
-            <th>Incident Name</th>
-            <th>Severity</th>
-            <th>Status</th>
-            <th>Action</th>
-        </tr>
+            <table>
 
-        {% for incident in incidents %}
+                <tr>
 
-        <tr>
+                    <th>ID</th>
+                    <th>Incident Name</th>
+                    <th>Severity</th>
+                    <th>Status</th>
+                    <th>Timestamp</th>
+                    <th>Action</th>
 
-            <td>{{ incident[0] }}</td>
+                </tr>
 
-            <td>{{ incident[1] }}</td>
+                {% for incident in incidents %}
 
-            <td>
-                <span class="
-                    {% if incident[2] == 'Critical' %}
-                        critical
-                    {% elif incident[2] == 'High' %}
-                        high
-                    {% elif incident[2] == 'Medium' %}
-                        medium
-                    {% else %}
-                        low
-                    {% endif %}
-                ">
-                    {{ incident[2] }}
-                </span>
-            </td>
+                <tr>
 
-            <td>{{ incident[3] }}</td>
+                    <td>{{ incident[0] }}</td>
 
-            <td>
-                <a href="/delete_incident/{{ incident[0] }}"
-                   class="delete-btn">
-                   Delete
-                </a>
-            </td>
+                    <td>{{ incident[1] }}</td>
 
-        </tr>
+                    <td>
 
-        {% endfor %}
+                        <span class="
+                            {% if incident[2] == 'Critical' %}
+                                critical
+                            {% elif incident[2] == 'High' %}
+                                high
+                            {% elif incident[2] == 'Medium' %}
+                                medium
+                            {% else %}
+                                low
+                            {% endif %}
+                        ">
 
-    </table>
+                            {{ incident[2] }}
 
-</div>
+                        </span>
+
+                    </td>
+
+                    <td>{{ incident[3] }}</td>
+
+                    <td>{{ incident[4] }}</td>
+
+                        <a href="/delete_incident/{{ incident[0] }}"
+                           class="delete-btn">
+
+                           Delete
+
+                        </a>
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </table>
+
+        </div>
+
     </div>
-<script>
 
-    const severityData = {{ severity_data | tojson }};
+    <!-- Chart Script -->
 
-    const labels = severityData.map(item => item[0]);
-    const counts = severityData.map(item => item[1]);
+    <script>
 
-    const ctx = document.getElementById('severityChart');
+        const severityData = {{ severity_data | tojson }};
 
-    new Chart(ctx, {
-        type: 'pie',
+        const labels = severityData.map(item => item[0]);
 
-        data: {
-            labels: labels,
+        const counts = severityData.map(item => item[1]);
 
-            datasets: [{
-                data: counts,
+        const ctx = document.getElementById('severityChart');
 
-                backgroundColor: [
-                    '#ef4444',
-                    '#f97316',
-                    '#eab308',
-                    '#22c55e'
-                ]
-            }]
-        }
-    });
+        new Chart(ctx, {
 
-</script>
+            type: 'pie',
+
+            data: {
+
+                labels: labels,
+
+                datasets: [{
+
+                    data: counts,
+
+                    backgroundColor: [
+                        '#ef4444',
+                        '#f97316',
+                        '#eab308',
+                        '#22c55e'
+                    ]
+
+                }]
+
+            }
+
+        });
+        // Live Clock
+
+        function updateClock() {
+
+            const now = new Date();
+
+            const timeString = now.toLocaleTimeString();
+
+            document.getElementById("liveClock").innerText = timeString;
+      }
+
+        // Update every second
+
+        setInterval(updateClock, 1000);
+
+        // Run immediately
+
+        updateClock();
+
+        // Auto Refresh Dashboard Every 10 Seconds
+
+        setTimeout(() => {
+
+            location.reload();
+
+        }, 10000);
+
+    </script>
+
 </body>
+
 </html>

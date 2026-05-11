@@ -17,6 +17,23 @@
 <div class="login-container">
 
     <h1>CyberSec Login</h1>
+    <!-- Flash Messages -->
+
+{% with messages = get_flashed_messages() %}
+
+    {% if messages %}
+
+        {% for message in messages %}
+
+            <div class="alert-box">
+                {{ message }}
+            </div>
+
+        {% endfor %}
+
+    {% endif %}
+
+{% endwith %}
 
     <form method="POST">
 
