@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Cybersecurity Incident Response Tool</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+
+        <h2>CyberSec Tool</h2>
+
+        <ul>
+            <li>Dashboard</li>
+            <li>Incidents</li>
+            <li>Alerts</li>
+            <li>Reports</li>
+            <li>Settings</li>
+        </ul>
+
+    </div>
+
+    <!-- Main Content -->
+    <div class="navbar">
+
+    <h1>Cybersecurity Incident Response Dashboard</h1>
+
+    <div>
+
+        <a href="/simulate_attack"
+           class="simulate-btn">
+           Simulate Attack
+        </a>
+
+        <a href="/export_csv"
+           class="export-btn">
+           Export CSV
+        </a>
+
+        <a href="/logout"
+           class="logout-btn">
+           Logout
+        </a>
+
+    </div>
+
+</div>
+
+        <!-- Cards -->
+        <div class="card-container">
+
+            <div class="card">
+                <h3>Total Incidents</h3>
+                <p>{{ total_incidents }}</p>
+            </div>
+
+            <div class="card">
+                <h3>Critical Alerts</h3>
+                <p>{{ critical_alerts }}</p>
+            </div>
+
+            <div class="card">
+                <h3>Resolved Cases</h3>
+                <p>{{ resolved_cases }}</p>
+            </div>
+
+            <div class="card">
+                <h3>System Status</h3>
+                <p>Secure</p>
+            </div>
+
+        </div>
+<!-- Add Incident Form -->
+
+<div class="form-section">
+
+    <h2>Add New Incident</h2>
+
+    <form action="/add_incident" method="POST">
+
+        <input type="text"
+               name="incident_name"
+               placeholder="Incident Name"
+               required>
+
+        <select name="severity">
+
+            <option value="Low">Low</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
+            <option value="Critical">Critical</option>
+
+        </select>
+
+        <select name="status">
+
+            <option value="Active">Active</option>
+            <option value="Resolved">Resolved</option>
+
+        </select>
+
+        <button type="submit">Add Incident</button>
+
+    </form>
+
+</div>
+
+<!-- Search and Filter -->
+
+<div class="filter-section">
+
+    <form method="GET" action="/">
+
+        <input type="text"
+               name="search"
+               placeholder="Search incidents...">
+
+        <select name="severity">
+
+            <option value="">All Severities</option>
+            <option value="Critical">Critical</option>
+            <option value="High">High</option>
+            <option value="Medium">Medium</option>
+            <option value="Low">Low</option>
+
+        </select>
+
+        <button type="submit">Filter</button>
+
+    </form>
+
+</div>
+
+<!-- Analytics Chart -->
+
+<div class="chart-section">
+
+    <h2>Incident Severity Analytics</h2>
+
+    <canvas id="severityChart"></canvas>
+
+</div>
+
+<!-- Incident Table -->
+
+<div class="table-section">
+
+    <h2>Incident Logs</h2>
+
+    <table>
+
+        <tr>
+            <th>ID</th>
+            <th>Incident Name</th>
+            <th>Severity</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+
+        {% for incident in incidents %}
+
+        <tr>
+
+            <td>{{ incident[0] }}</td>
+
+            <td>{{ incident[1] }}</td>
+
+            <td>
+                <span class="
+                    {% if incident[2] == 'Critical' %}
+                        critical
+                    {% elif incident[2] == 'High' %}
+                        high
+                    {% elif incident[2] == 'Medium' %}
+                        medium
+                    {% else %}
+                        low
+                    {% endif %}
+                ">
+                    {{ incident[2] }}
+                </span>
+            </td>
+
+            <td>{{ incident[3] }}</td>
+
+            <td>
+                <a href="/delete_incident/{{ incident[0] }}"
+                   class="delete-btn">
+                   Delete
+                </a>
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+</div>
+    </div>
+<script>
+
+    const severityData = {{ severity_data | tojson }};
+
+    const labels = severityData.map(item => item[0]);
+    const counts = severityData.map(item => item[1]);
+
+    const ctx = document.getElementById('severityChart');
+
+    new Chart(ctx, {
+        type: 'pie',
+
+        data: {
+            labels: labels,
+
+            datasets: [{
+                data: counts,
+
+                backgroundColor: [
+                    '#ef4444',
+                    '#f97316',
+                    '#eab308',
+                    '#22c55e'
+                ]
+            }]
+        }
+    });
+
+</script>
+</body>
+</html>

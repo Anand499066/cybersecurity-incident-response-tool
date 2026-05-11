@@ -1,0 +1,6 @@
+ID,Incident Name,Severity,Status
+1,Malware Attack,Critical,Active
+2,Phishing Email,High,Resolved
+3,Unauthorized Access,Critical,Active
+4,DDoS Attempt,Medium,Resolved
+5,SQL Injection,Critical,Active
