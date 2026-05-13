@@ -4,6 +4,8 @@ from reportlab.platypus import SimpleDocTemplate, Table
 from reportlab.lib import colors
 import sqlite3
 import random
+import folium
+import psutil
 import csv
 
 app = Flask(__name__)
@@ -86,7 +88,52 @@ def logout():
     session.pop('user', None)
 
     return redirect('/login')
+# =========================
+# Global Threat Map
+# =========================
 
+@app.route('/threat_map')
+def threat_map():
+
+    cyber_map = folium.Map(
+        location=[20,0],
+        zoom_start=2
+    )
+
+    # Sample Attack Locations
+
+    attacks = [
+
+        ("USA", 37.0902, -95.7129),
+        ("Russia", 61.5240, 105.3188),
+        ("China", 35.8617, 104.1954),
+        ("Germany", 51.1657, 10.4515),
+        ("India", 20.5937, 78.9629)
+
+    ]
+
+    for country, lat, lon in attacks:
+
+        folium.Marker(
+
+            [lat, lon],
+
+            popup=f"Cyber Attack Detected: {country}",
+
+            icon=folium.Icon(
+                color='red',
+                icon='warning-sign'
+            )
+
+        ).add_to(cyber_map)
+
+    cyber_map.save(
+        'templates/threat_map.html'
+    )
+
+    return render_template(
+        'threat_map.html'
+    )
 
 # Export Incident Report CSV
 
@@ -287,6 +334,23 @@ def home():
 
     conn.close()
 
+    # =========================
+    # SIEM Metrics
+    # =========================
+
+    cpu_usage = psutil.cpu_percent()
+
+    ram_usage = psutil.virtual_memory().percent
+
+    network_speed = random.randint(100, 1000)
+
+    threat_level = random.choice([
+        "LOW",
+        "MEDIUM",
+        "HIGH",
+        "CRITICAL"
+    ])
+
     return render_template(
 
         'index.html',
@@ -295,10 +359,14 @@ def home():
         critical_alerts=critical_alerts,
         resolved_cases=resolved_cases,
         incidents=incidents,
-        severity_data=severity_data
+        severity_data=severity_data,
+
+        cpu_usage=cpu_usage,
+        ram_usage=ram_usage,
+        network_speed=network_speed,
+        threat_level=threat_level
 
     )
-
 
 # Add Incident Route
 

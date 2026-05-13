@@ -1,247 +1,501 @@
-/* Form Section */
+/* =========================
+   Global Styles
+========================= */
 
-.form-section {
-    margin-top: 40px;
-    background-color: #1e293b;
-    padding: 25px;
-    border-radius: 12px;
+body {
+
+    margin: 0;
+
+    padding: 0;
+
+    font-family: Arial, sans-serif;
+
+    background-image:
+        linear-gradient(
+            rgba(0,0,0,0.85),
+            rgba(0,0,0,0.9)
+        ),
+        url("../images/cyber-bg.png");
+
+    background-size: cover;
+
+    background-position: center;
+
+    background-attachment: fixed;
+
+    color: white;
+
 }
 
-.form-section h2 {
-    margin-bottom: 20px;
+/* =========================
+   Sidebar
+========================= */
+
+.sidebar {
+
+    position: fixed;
+
+    width: 240px;
+
+    height: 100vh;
+
+    background: rgba(17, 24, 39, 0.85);
+
+    backdrop-filter: blur(10px);
+
+    padding: 20px;
+
+    box-sizing: border-box;
+
+}
+
+.sidebar h2 {
+
     color: #38bdf8;
+
+    margin-bottom: 30px;
+
 }
+
+.sidebar ul {
+
+    list-style: none;
+
+    padding: 0;
+
+}
+
+.sidebar ul li {
+
+    padding: 15px;
+
+    margin-bottom: 10px;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    transition: 0.3s ease;
+
+}
+
+.sidebar ul li:hover {
+
+    background-color: rgba(56, 189, 248, 0.2);
+
+}
+
+/* =========================
+   Main Content
+========================= */
+
+.main-content {
+
+    margin-left: 260px;
+
+    padding: 30px;
+
+}
+
+/* =========================
+   Navbar
+========================= */
+
+.navbar {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 30px;
+
+    background: rgba(17, 24, 39, 0.75);
+
+    backdrop-filter: blur(10px);
+
+    padding: 20px;
+
+    border-radius: 12px;
+
+}
+
+/* =========================
+   Dashboard Cards
+========================= */
+
+.card-container {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(220px, 1fr));
+
+    gap: 20px;
+
+}
+
+.card {
+
+    background: rgba(17, 24, 39, 0.75);
+
+    backdrop-filter: blur(10px);
+
+    border: 1px solid rgba(255,255,255,0.1);
+
+    padding: 25px;
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 4px 30px rgba(0,0,0,0.3);
+
+}
+
+.card h3 {
+
+    color: #38bdf8;
+
+}
+
+.card p {
+
+    font-size: 28px;
+
+    font-weight: bold;
+
+}
+
+/* =========================
+   Shared Glass Sections
+========================= */
+
+.form-section,
+.filter-section,
+.chart-section,
+.table-section,
+.feed-section,
+.login-container {
+
+    background: rgba(17, 24, 39, 0.75);
+
+    backdrop-filter: blur(10px);
+
+    border: 1px solid rgba(255,255,255,0.1);
+
+    box-shadow:
+        0 4px 30px rgba(0,0,0,0.3);
+
+    border-radius: 12px;
+
+    padding: 25px;
+
+    margin-top: 30px;
+
+}
+
+/* =========================
+   Form Styles
+========================= */
 
 form {
+
     display: flex;
+
     gap: 15px;
+
     flex-wrap: wrap;
+
 }
 
 input,
 select,
 button {
+
     padding: 12px;
+
     border: none;
+
     border-radius: 8px;
+
 }
 
 input,
 select {
+
     flex: 1;
+
+}
+
+/* =========================
+   Buttons
+========================= */
+
+button,
+.simulate-btn,
+.export-btn,
+.logout-btn,
+.delete-btn {
+
+    transition: 0.3s ease;
+
+}
+
+button:hover,
+.simulate-btn:hover,
+.export-btn:hover,
+.logout-btn:hover,
+.delete-btn:hover {
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 4px 12px rgba(59,130,246,0.4);
+
 }
 
 button {
+
     background-color: #38bdf8;
+
     color: black;
+
     cursor: pointer;
+
     font-weight: bold;
+
 }
 
 button:hover {
+
     background-color: #0ea5e9;
+
 }
-
-/* Table Section */
-
-.table-section {
-    margin-top: 40px;
-    background-color: #1e293b;
-    padding: 25px;
-    border-radius: 12px;
-}
-
-.table-section h2 {
-    margin-bottom: 20px;
-    color: #38bdf8;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-table th,
-table td {
-    padding: 15px;
-    border-bottom: 1px solid #334155;
-    text-align: left;
-}
-
-table th {
-    color: #38bdf8;
-}
-/* Severity Badges */
-
-.critical {
-    background-color: red;
-    color: white;
-    padding: 6px 12px;
-    border-radius: 6px;
-}
-
-.high {
-    background-color: orange;
-    color: black;
-    padding: 6px 12px;
-    border-radius: 6px;
-}
-
-.medium {
-    background-color: yellow;
-    color: black;
-    padding: 6px 12px;
-    border-radius: 6px;
-}
-
-.low {
-    background-color: green;
-    color: white;
-    padding: 6px 12px;
-    border-radius: 6px;
-}
-
-/* Delete Button */
-
-.delete-btn {
-    background-color: crimson;
-    color: white;
-    padding: 8px 14px;
-    border-radius: 6px;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-.delete-btn:hover {
-    background-color: darkred;
-}
-/* Navbar */
-
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 30px;
-}
-
-/* Simulate Button */
 
 .simulate-btn {
+
     background-color: #ef4444;
+
     color: white;
+
     padding: 12px 18px;
+
     border-radius: 8px;
+
     text-decoration: none;
+
     font-weight: bold;
+
 }
 
 .simulate-btn:hover {
+
     background-color: #dc2626;
-}
-/* Filter Section *//* Chart Section */
 
-.chart-section {
-    margin-top: 40px;
-    background-color: #1e293b;
-    padding: 25px;
-    border-radius: 12px;
 }
-
-.chart-section h2 {
-    margin-bottom: 20px;
-    color: #38bdf8;
-}
-
-#severityChart {
-    max-width: 500px;
-    margin: auto;
-}
-.filter-section {
-    margin-top: 40px;
-    background-color: #1e293b;
-    padding: 20px;
-    border-radius: 12px;
-}
-/* Login Page */
-
-.login-container {
-    width: 400px;
-    margin: 100px auto;
-    background-color: #1e293b;
-    padding: 40px;
-    border-radius: 12px;
-    text-align: center;
-}
-
-.login-container h1 {
-    margin-bottom: 25px;
-    color: #38bdf8;
-}
-
-.login-container form {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.logout-btn {
-    background-color: gray;
-    color: white;
-    padding: 12px 18px;
-    border-radius: 8px;
-    text-decoration: none;
-    margin-left: 10px;
-}
-
-.logout-btn:hover {
-    background-color: darkgray;
-}
-/* Export Button */
 
 .export-btn {
+
     background-color: #22c55e;
+
     color: white;
+
     padding: 12px 18px;
+
     border-radius: 8px;
+
     text-decoration: none;
+
     margin-left: 10px;
+
     font-weight: bold;
+
 }
 
 .export-btn:hover {
-    background-color: #16a34a;
-}
-/* Live Alert Box */
 
-.alert-box {
-    background-color: #dc2626;
+    background-color: #16a34a;
+
+}
+
+.logout-btn {
+
+    background-color: gray;
+
     color: white;
-    padding: 18px;
-    margin-bottom: 20px;
-    border-radius: 10px;
+
+    padding: 12px 18px;
+
+    border-radius: 8px;
+
+    text-decoration: none;
+
+    margin-left: 10px;
+
+}
+
+.logout-btn:hover {
+
+    background-color: darkgray;
+
+}
+
+.delete-btn {
+
+    background-color: crimson;
+
+    color: white;
+
+    padding: 8px 14px;
+
+    border-radius: 6px;
+
+    text-decoration: none;
+
     font-weight: bold;
+
+}
+
+.delete-btn:hover {
+
+    background-color: darkred;
+
+}
+
+/* =========================
+   Table Styles
+========================= */
+
+table {
+
+    width: 100%;
+
+    border-collapse: collapse;
+
+    color: white;
+
+}
+
+th {
+
+    background: rgba(59, 130, 246, 0.2);
+
+    color: #38bdf8;
+
+}
+
+td,
+th {
+
+    padding: 14px;
+
+    border-bottom:
+        1px solid rgba(255,255,255,0.1);
+
+    text-align: left;
+
+}
+
+/* =========================
+   Severity Badges
+========================= */
+
+.critical {
+
+    background-color: red;
+
+    color: white;
+
+    padding: 6px 12px;
+
+    border-radius: 6px;
+
+}
+
+.high {
+
+    background-color: orange;
+
+    color: black;
+
+    padding: 6px 12px;
+
+    border-radius: 6px;
+
+}
+
+.medium {
+
+    background-color: yellow;
+
+    color: black;
+
+    padding: 6px 12px;
+
+    border-radius: 6px;
+
+}
+
+.low {
+
+    background-color: green;
+
+    color: white;
+
+    padding: 6px 12px;
+
+    border-radius: 6px;
+
+}
+
+/* =========================
+   Chart Section
+========================= */
+
+#severityChart {
+
+    max-width: 500px;
+
+    margin: auto;
+
+}
+
+/* =========================
+   Login Page
+========================= */
+
+.login-container {
+
+    width: 400px;
+
+    margin: 100px auto;
+
     text-align: center;
 
-    animation: pulse 1s infinite;
 }
 
-/* Flashing Animation */
+.login-container h1 {
 
-@keyframes pulse {
+    margin-bottom: 25px;
 
-    0% {
-        opacity: 1;
-    }
+    color: #38bdf8;
 
-    50% {
-        opacity: 0.6;
-    }
-
-    100% {
-        opacity: 1;
-    }
 }
-/* System Status */
+
+.login-container form {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 20px;
+
+}
+
+/* =========================
+   System Status
+========================= */
 
 .system-status {
 
@@ -251,11 +505,368 @@ table th {
 
     font-size: 16px;
 
-    margin-top: 10px;
 }
-/* Timestamp Column */
 
-table td {
+/* =========================
+   Notifications
+========================= */
+
+.notification-container {
+
+    position: fixed;
+
+    top: 20px;
+
+    right: 20px;
+
+    z-index: 9999;
+
+}
+
+.notification {
+
+    background: #111827;
+
+    color: white;
+
+    padding: 15px 20px;
+
+    margin-bottom: 10px;
+
+    border-left: 5px solid #ef4444;
+
+    border-radius: 8px;
+
+    box-shadow:
+        0 4px 12px rgba(0,0,0,0.3);
+
+    min-width: 280px;
+
+    animation: slideIn 0.5s ease;
+
+    opacity: 1;
+
+    transition: opacity 0.5s ease;
+
+}
+
+@keyframes slideIn {
+
+    from {
+
+        transform: translateX(100%);
+
+        opacity: 0;
+
+    }
+
+    to {
+
+        transform: translateX(0);
+
+        opacity: 1;
+
+    }
+
+}
+
+/* =========================
+   Live Threat Feed
+========================= */
+
+.feed-section {
+
+    color: white;
+
+}
+
+#attackFeed {
+
+    max-height: 250px;
+
+    overflow-y: auto;
+
+    margin-top: 15px;
+
+}
+
+.feed-item {
+
+    background: #1f2937;
 
     padding: 12px;
+
+    margin-bottom: 10px;
+
+    border-left: 4px solid #ef4444;
+
+    border-radius: 6px;
+
+    font-size: 14px;
+
+    animation: fadeIn 0.4s ease;
+
+}
+
+@keyframes fadeIn {
+
+    from {
+
+        opacity: 0;
+
+        transform: translateY(10px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform: translateY(0);
+
+    }
+
+}
+/* =========================
+   LOGIN PAGE BACKGROUND
+========================= */
+
+body.login-page {
+
+    margin: 0;
+    padding: 0;
+
+    font-family: Arial, sans-serif;
+
+    background-image:
+        linear-gradient(
+            rgba(0,0,0,0.7),
+            rgba(0,0,0,0.7)
+        ),
+        url("https://images.unsplash.com/photo-1516321318423-f06f85e504b3");
+
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+
+    color: white;
+}
+/* =========================
+   DASHBOARD BACKGROUND
+========================= */
+
+body.dashboard-page {
+
+    margin: 0;
+    padding: 0;
+
+    font-family: Arial, sans-serif;
+
+    background: linear-gradient(
+        135deg,
+        #0f172a,
+        #111827,
+        #1e293b
+    );
+
+    color: white;
+}
+/* =========================
+   Global Threat Map
+========================= */
+
+.map-section {
+
+    background: rgba(17, 24, 39, 0.75);
+
+    backdrop-filter: blur(10px);
+
+    border-radius: 12px;
+
+    padding: 20px;
+
+    margin-top: 25px;
+
+    box-shadow:
+        0 4px 30px rgba(0,0,0,0.3);
+
+}
+
+#threatMap {
+
+    max-height: 250px;
+
+    overflow-y: auto;
+
+    margin-top: 15px;
+
+}
+
+.threat-item {
+
+    background: #0f172a;
+
+    padding: 12px;
+
+    margin-bottom: 10px;
+
+    border-left: 4px solid #38bdf8;
+
+    border-radius: 6px;
+
+    animation: fadeIn 0.4s ease;
+
+}
+/* =========================
+   Animated Counter Cards
+========================= */
+
+.counter {
+
+    font-size: 34px;
+
+    font-weight: bold;
+
+    color: #38bdf8;
+
+    transition: 0.3s ease;
+
+}
+/* =========================
+   Light Theme
+========================= */
+
+body.light-theme {
+
+    background:
+        linear-gradient(
+            135deg,
+            #f1f5f9,
+            #e2e8f0
+        );
+
+    color: black;
+
+}
+
+/* Cards & Sections */
+
+body.light-theme .card,
+body.light-theme .form-section,
+body.light-theme .filter-section,
+body.light-theme .chart-section,
+body.light-theme .table-section,
+body.light-theme .feed-section,
+body.light-theme .map-section,
+body.light-theme .navbar {
+
+    background: rgba(255,255,255,0.9);
+
+    color: black;
+
+}
+
+/* Sidebar */
+
+body.light-theme .sidebar {
+
+    background: rgba(255,255,255,0.95);
+
+}
+
+/* Table */
+
+body.light-theme table {
+
+    color: black;
+
+}
+
+/* Feed Items */
+
+body.light-theme .feed-item,
+body.light-theme .threat-item {
+
+    background: #e2e8f0;
+
+    color: black;
+
+}
+
+/* Notifications */
+
+body.light-theme .notification {
+
+    background: white;
+
+    color: black;
+
+}
+/* =========================
+   Live Trend Chart
+========================= */
+
+#liveAttackChart {
+
+    width: 100%;
+
+    max-height: 400px;
+
+}
+/* =========================
+   SIEM Metrics Panel
+========================= */
+
+.siem-panel {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(220px,1fr));
+
+    gap: 20px;
+
+    margin-top: 30px;
+
+}
+
+.siem-card {
+
+    background: rgba(15,23,42,0.9);
+
+    padding: 25px;
+
+    border-radius: 14px;
+
+    text-align: center;
+
+    box-shadow:
+        0 4px 20px rgba(0,0,0,0.3);
+
+    transition: 0.3s ease;
+
+}
+
+.siem-card:hover {
+
+    transform: translateY(-5px);
+
+}
+
+.siem-card h3 {
+
+    color: #38bdf8;
+
+    margin-bottom: 10px;
+
+}
+
+.siem-card p {
+
+    font-size: 28px;
+
+    font-weight: bold;
+
+    color: white;
+
 }
